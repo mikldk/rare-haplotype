@@ -1,5 +1,9 @@
 load("../../data/y23_2014-05-23.RData")
 
+if (!file.exists("fig")) {
+  dir.create("fig")
+}
+
 library(disclapmix)
 library(parallel)
 library(dplyr)
