@@ -6,6 +6,10 @@ if (!file.exists("cache-cases")) {
   dir.create("cache-cases")
 }
 
+if (!file.exists("cache-disclap")) {
+  dir.create("cache-disclap")
+}
+
 # Guilty suspect, H, and a dataset where he is unobserved
 sample_case_Hp <- function(dbsize, seed) {  
   casename <- paste0("case-Hp-dbsize-", sprintf("%05d", dbsize), "-seed-", sprintf(paste0("%0", nchar(.Machine$integer.max), "d"), seed))

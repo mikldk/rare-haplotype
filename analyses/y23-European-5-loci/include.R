@@ -9,6 +9,9 @@ library(parallel)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(GGally)
+library(ROCR)
+library(RColorBrewer)
 
 # Return data frame with unique rows and their counts
 count_rows <- function(x) { 
