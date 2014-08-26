@@ -61,18 +61,54 @@ dev.off()
 
 ##
 
-Hp_cases_LRs_df_log10 <- log10(Hp_cases_LRs_df[, -which(colnames(Hp_cases_LRs_df) == "Count")])
-p <- ggpairs(Hp_cases_LRs_df_log10, title = "log10(LR)")
+if (FALSE) {
+  Hp_cases_LRs_df_log10 <- log10(Hp_cases_LRs_df[, -which(colnames(Hp_cases_LRs_df) == "Count")])
+  p <- ggpairs(Hp_cases_LRs_df_log10, title = "log10(LR)")
 
-pdf("fig/fig-cases-pairwise-LR-Hp.pdf", width = 16, height = 16)
-print(p)
+  pdf("fig/fig-cases-pairwise-LR-Hp.pdf", width = 16, height = 16)
+  print(p)
+  dev.off()
+
+  Hd_cases_matches_LRs_df_log10 <- log10(Hd_cases_matches_LRs_df[, -which(colnames(Hd_cases_matches_LRs_df) == "Count")])
+  p <- ggpairs(Hd_cases_matches_LRs_df_log10)
+
+  pdf("fig/fig-cases-pairwise-LR-Hd-matching.pdf", width = 16, height = 16)
+  print(p)
+  dev.off()
+}
+
+Hp_cases_LRs_df_log10 <- log10(Hp_cases_LRs_df[, -which(colnames(Hp_cases_LRs_df) == "Count")])
+Hd_cases_matches_LRs_df_log10 <- log10(Hd_cases_matches_LRs_df[, -which(colnames(Hd_cases_matches_LRs_df) == "Count")])
+
+draw_comparison <- function(df, sub, ref = "True") {
+  par(mfrow = n2mfrow(ncol(df) - 1L))
+  
+  ref_level <- which(colnames(df) == ref)
+  
+  for (i in (1L:ncol(df))[-Hp_ref_level]) {
+    xs <- df[, ref_level]
+    ys <- df[, i]
+    
+    # distance between line Ax + By + C = 0 and point (m, n)
+    # d = |Am + Bn + C| / sqrt(A^2 + B^2)
+    
+    # Here, we want the identity line, y = x
+    # A = 1, B = -1, C = 0
+    # d = |m - n| / sqrt(2)
+
+    ds <- sum(abs(xs - ys) / sqrt(2))
+    
+    plot(xs, ys, xlab = ref, ylab = colnames(df)[i], main = paste0("sum(D(points, y = x)) = ", round(ds, 2)), sub = sub)
+    abline(a = 0, b = 1)
+  }
+}
+
+pdf("fig/fig-cases-pairwise-LR-Hp.pdf", width = 10, height = 10)
+draw_comparison(Hp_cases_LRs_df_log10, sub = "On log10 scale", ref = "True")
 dev.off()
 
-Hd_cases_matches_LRs_df_log10 <- log10(Hd_cases_matches_LRs_df[, -which(colnames(Hd_cases_matches_LRs_df) == "Count")])
-p <- ggpairs(Hd_cases_matches_LRs_df_log10)
-
-pdf("fig/fig-cases-pairwise-LR-Hd-matching.pdf", width = 16, height = 16)
-print(p)
+pdf("fig/fig-cases-pairwise-LR-Hd-matching.pdf", width = 10, height = 10)
+draw_comparison(Hd_cases_matches_LRs_df_log10, sub = "On log10 scale", ref = "True")
 dev.off()
 
 ################################################################################
