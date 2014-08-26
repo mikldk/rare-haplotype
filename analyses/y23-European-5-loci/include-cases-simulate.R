@@ -22,10 +22,11 @@ sample_case_Hp <- function(dbsize, seed) {
 
   set.seed(seed)  
   
+  indices_db <- sample(x = 1L:nrow(true_pop), size = dbsize, replace = TRUE, prob = true_pop$pop_freq)
+  
   unsuccesful_tries <- 0L
   
-  while (TRUE) {
-    indices_db <- sample(x = 1L:nrow(true_pop), size = dbsize, replace = TRUE, prob = true_pop$pop_freq)
+  while (TRUE) {    
     guilty_suspect_id <- sample(x = 1L:nrow(true_pop), size = 1L, replace = TRUE, prob = true_pop$pop_freq)
   
     if (!(guilty_suspect_id %in% indices_db)) {
@@ -63,10 +64,11 @@ sample_case_Hd <- function(dbsize, seed) {
 
   set.seed(seed)  
   
+  indices_db <- sample(x = 1L:nrow(true_pop), size = dbsize, replace = TRUE, prob = true_pop$pop_freq)
+  
   unsuccesful_tries <- 0L
   
-  while (TRUE) {
-    indices_db <- sample(x = 1L:nrow(true_pop), size = dbsize, replace = TRUE, prob = true_pop$pop_freq)
+  while (TRUE) {    
     guilty_suspect_id <- sample(x = 1L:nrow(true_pop), size = 1L, replace = TRUE, prob = true_pop$pop_freq)
   
     if (!(guilty_suspect_id %in% indices_db)) {
