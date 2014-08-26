@@ -88,7 +88,7 @@ case_LRs <- function(case) {
     return(NULL)
   }
   
-  spectrum <- count_rows(case$db)$counts
+  spectrum <- sort(count_rows(case$db)$counts)
   
   N <- case$dbsize
   N1 <- sum(spectrum == 1L) # number of singletons 
