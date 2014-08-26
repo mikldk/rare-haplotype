@@ -3,7 +3,7 @@ source("include-cases-simulate.R")
 source("include-cases-LR.R")
 
 N_Hp <- 100L  # Number of Hp cases
-N_Hd <- 10000L # Number of Hd cases
+N_Hd <- 100000L # Number of Hd cases
 
 DBSIZE <- 100L
 
