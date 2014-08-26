@@ -26,7 +26,11 @@ Hp_cases_LRs <- mclapply(Hp_cases, case_LRs, mc.cores = detectCores())
 Hd_cases_LRs <- mclapply(Hd_cases, case_LRs, mc.cores = detectCores())
 Hd_cases_matches_LRs <- Hd_cases_LRs[!unlist(lapply(Hd_cases_LRs, is.null))]
 
-cat("Percentage non-matching Hd: ", round(100*(1 - (length(Hd_cases_matches_LRs) / length(Hd_cases_LRs))), 3), "%\n", sep = "")
+cat("-> Sampled Hp                = ", N_Hp, "\n", sep = "")
+cat("   Sampled Hd                = ", N_Hd, "\n", sep = "")
+cat("->   of which are matching   = ", length(Hd_cases_matches_LRs), "\n", sep = "")
+cat("     percentage non-matching = ", round(100*(1 - (length(Hd_cases_matches_LRs) / N_Hd)), 3), "%\n", sep = "")
+cat("(Numbers with -> are the number of cases analysed.)\n")
 
 ################################################################################
 
