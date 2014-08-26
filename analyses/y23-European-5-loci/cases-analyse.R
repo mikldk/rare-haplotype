@@ -85,7 +85,7 @@ draw_comparison <- function(df, sub, ref = "True") {
   
   ref_level <- which(colnames(df) == ref)
   
-  for (i in (1L:ncol(df))[-Hp_ref_level]) {
+  for (i in (1L:ncol(df))[-ref_level]) {
     xs <- df[, ref_level]
     ys <- df[, i]
     
