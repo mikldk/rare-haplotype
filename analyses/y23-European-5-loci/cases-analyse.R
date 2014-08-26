@@ -32,6 +32,26 @@ cat("->   of which are matching   = ", length(Hd_cases_matches_LRs), "\n", sep =
 cat("     percentage non-matching = ", round(100*(1 - (length(Hd_cases_matches_LRs) / N_Hd)), 3), "%\n", sep = "")
 cat("(Numbers with -> are the number of cases analysed.)\n")
 
+N1_proportion_Hp <- unlist(lapply(Hp_cases_LRs, function(l) sum(l$spectrum == 1L) / sum(l$spectrum)))
+N1_proportion_Hd_matches <- unlist(lapply(Hd_cases_matches_LRs, function(l) sum(l$spectrum == 1L) / sum(l$spectrum)))
+N1_ttest <- t.test(N1_proportion_Hp, N1_proportion_Hd_matches, paired = FALSE)
+
+N2_proportion_Hp <- unlist(lapply(Hp_cases_LRs, function(l) sum(l$spectrum == 2L) / sum(l$spectrum)))
+N2_proportion_Hd_matches <- unlist(lapply(Hd_cases_matches_LRs, function(l) sum(l$spectrum == 2L) / sum(l$spectrum)))
+N2_ttest <- t.test(N2_proportion_Hp, N2_proportion_Hd_matches, paired = FALSE)
+
+pdf("fig/fig-cases-spectrum-properties.pdf", width = 6, height = 8)
+par(mfrow = c(2, 1))
+boxplot(N1_proportion_Hp, N1_proportion_Hd_matches, 
+  names = c("Hp", "Hd (match)"), 
+  main = paste0("t-test p-value of equality = ", formatC(N1_ttest$p.value)), 
+  varwidth = TRUE)
+boxplot(N2_proportion_Hp, N2_proportion_Hd_matches, 
+  names = c("Hp", "Hd (match)"), 
+  main = paste0("t-test p-value of equality = ", formatC(N2_ttest$p.value)), 
+  varwidth = TRUE)
+dev.off()
+
 ################################################################################
 
 Hp_cases_LRs_df <- data.frame(do.call(rbind, lapply(Hp_cases_LRs, function(l) do.call(cbind, l$LRs))))
